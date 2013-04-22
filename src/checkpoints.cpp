@@ -22,6 +22,26 @@ namespace Checkpoints
     //    timestamp before)
     // + Contains no strange transactions
     //
+
+// FBX
+    static MapCheckpoints mapCheckpoints =
+        boost::assign::map_list_of
+        (    50, uint256("0x4f8a5ab946d64c19a4f3dacffc6014e47735fd12984e89d7436790accb115a3b"))
+        (    57, uint256("0x034a3d32d1324130954f33ee7ad008012373ec93d01540d2a1a85d30a19770ed"))
+        (  5000, uint256("0x9289ee81e679e10e6ed01232e70c19c9ef9682a38489227cd521a0136649b1ad"))
+        ( 15000, uint256("0x7c7fc755c19616fd3eb156b53dae2bbf058972e0731f3d0ee54785cc222f4bbf"))
+        (114000, uint256("0xf863ed327eede0641e1be668d43144e67c52c0785524faff2dd1a21bbdeabfbe"))
+        (116144, uint256("0x7d0f9db5dbb9378ddd5bdd173b3c71fef8808690adec8ecc0bbb1b3648871b76"))
+        (120000, uint256("0x8eba390707d2de0af87f7f6c1e191de995a351d3cb1ac1667d83c207f4580217"))
+        (123340, uint256("0xfc425e4e4044bb8016a5bf7a3a8daaf5e5753017cd82c76cb8f168791b5b1986"))
+        (125000, uint256("0x24d37d00a27106edb6acd213914b89c64396eef2a8e7957d22a46779b1300d9f"))
+        (125882, uint256("0x350844dc30528e80f61ec00abb6c822493d401a165e0ef94ee0667ef8b76cf96"))
+        (128935, uint256("0x6272ad45f8a3933718635c81eaf89a8c1271dea1f8ac776db091b6f7109be390"))
+        (130000, uint256("0x96078b2d0c993fbee6041620a25076e7960e384bb3a5a4147b44f900687a3cf5"))
+        (131555, uint256("0x52d456035f3dc3942d0aeb5662522f5bad59fc70f7e420917a140cf4b31320b0"))
+        (135000, uint256("0xfdd4f9980cb734537e613718271a17b2d65169751779130839c59f8b62b4ed07"))
+        ;
+/*
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
         (     1, uint256("0x80ca095ed10b02e53d769eb6eaf92cd04e9e0759e5be4a8477b42911ba49c78f"))
@@ -37,7 +57,8 @@ namespace Checkpoints
         (161500, uint256("0xdbe89880474f4bb4f75c227c77ba1cdc024991123b28b8418dbbf7798471ff43"))
         (179620, uint256("0x2ad9c65c990ac00426d18e446e0fd7be2ffa69e9a7dcb28358a50b2b78b9f709"))
         ;
-/*
+
+
     static MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
         ( 546, uint256("000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70"))

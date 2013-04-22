@@ -1,11 +1,23 @@
+Fairbrix is an older, more primitive version of Litecoin.
+ - scrypt as a proof of work scheme
+ - 5 minute block targets
+ - 25 coins per block (constant forever)
+ - 2016 blocks (1 week) to retarget difficulty
+This version (Fairbrix 0.6.3beta) is based on Litecoin 0.6.3c.
+
 Litecoin - a lite version of Bitcoin optimized for CPU mining using scrypt as a proof of work scheme.
  - 2.5 minute block targets
  - subsidy halves in 840k blocks (~4 years)
  - ~84 million total coins
-
 The rest is the same as bitcoin.
  - 50 coins per block
  - 2016 blocks to retarget difficulty
+
+Bitcoin is a free open source peer-to-peer electronic cash system that is
+completely decentralized, without the need for a central server or trusted
+parties.  Users hold the crypto keys to their own money and transact directly
+with each other, with the help of a P2P network to check for double-spending.
+
 
 Development process
 ===================

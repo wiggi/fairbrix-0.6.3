@@ -44,18 +44,18 @@ contains(USE_QRCODE, 1) {
 #  or: qmake "USE_UPNP=0" (disabled by default)
 #  or: qmake "USE_UPNP=-" (not supported)
 # miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
-contains(USE_UPNP, -) {
-    message(Building without UPNP support)
-} else {
-    message(Building with UPNP support)
-    count(USE_UPNP, 0) {
-        USE_UPNP=1
-    }
-    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
-    INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
-    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-    win32:LIBS += -liphlpapi
-}
+#contains(USE_UPNP, -) {
+#    message(Building without UPNP support)
+#} else {
+#    message(Building with UPNP support)
+#    count(USE_UPNP, 0) {
+#        USE_UPNP=1
+#    }
+#    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
+#    INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
+#    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+#    win32:LIBS += -liphlpapi
+#}
 
 # use: qmake "USE_DBUS=1"
 contains(USE_DBUS, 1) {
@@ -284,8 +284,7 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    contrib/gitian-descriptors/* doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc \
-    share/setup.nsi
+    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {

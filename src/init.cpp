@@ -119,7 +119,7 @@ bool AppInit(int argc, char* argv[])
         //
         // Parameters
         //
-        // If Qt is used, parameters/litecoin.conf are parsed in qt/bitcoin.cpp's main()
+        // If Qt is used, parameters/fbx.conf are parsed in qt/bitcoin.cpp's main()
         ParseParameters(argc, argv);
         if (!boost::filesystem::is_directory(GetDataDir(false)))
         {
@@ -130,13 +130,13 @@ bool AppInit(int argc, char* argv[])
 
         if (mapArgs.count("-?") || mapArgs.count("--help"))
         {
-            // First part of help message is specific to litecoind / RPC client
+            // First part of help message is specific to fairbrixd / RPC client
             std::string strUsage = _("Litecoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
-                  "  litecoind [options]                     " + "\n" +
-                  "  litecoind [options] <command> [params]  " + _("Send command to -server or litecoind") + "\n" +
-                  "  litecoind [options] help                " + _("List commands") + "\n" +
-                  "  litecoind [options] help <command>      " + _("Get help for a command") + "\n";
+                  "  fairbrixd [options]                     " + "\n" +
+                  "  fairbrixd [options] <command> [params]  " + _("Send command to -server or fairbrixd") + "\n" +
+                  "  fairbrixd [options] help                " + _("List commands") + "\n" +
+                  "  fairbrixd [options] help <command>      " + _("Get help for a command") + "\n";
 
             strUsage += "\n" + HelpMessage();
 
@@ -146,7 +146,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "litecoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "fairbrix:"))
                 fCommandLine = true;
 
         if (fCommandLine)
@@ -172,7 +172,7 @@ int main(int argc, char* argv[])
 {
     bool fRet = false;
 
-    // Connect litecoind signal handlers
+    // Connect fairbrixd signal handlers
     noui_connect();
 
     fRet = AppInit(argc, argv);
@@ -213,8 +213,8 @@ bool static Bind(const CService &addr, bool fError = true) {
 std::string HelpMessage()
 {
     string strUsage = _("Options:") + "\n" +
-        "  -conf=<file>           " + _("Specify configuration file (default: litecoin.conf)") + "\n" +
-        "  -pid=<file>            " + _("Specify pid file (default: litecoind.pid)") + "\n" +
+        "  -conf=<file>           " + _("Specify configuration file (default: fbx.conf)") + "\n" +
+        "  -pid=<file>            " + _("Specify pid file (default: fairbrixd.pid)") + "\n" +
         "  -gen                   " + _("Generate coins") + "\n" +
         "  -gen=0                 " + _("Don't generate coins") + "\n" +
         "  -datadir=<dir>         " + _("Specify data directory") + "\n" +
@@ -267,7 +267,7 @@ std::string HelpMessage()
 #endif
         "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n" +
         "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n" +
-        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 9332)") + "\n" +
+        "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 8645)") + "\n" +
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
@@ -289,7 +289,7 @@ std::string HelpMessage()
     return strUsage;
 }
 
-/** Initialize litecoin.
+/** Initialize fairbrix.
  *  @pre Parameters should be parsed and config file should be read.
  */
 bool AppInit2()
@@ -583,7 +583,7 @@ bool AppInit2()
         strErrors << _("Error loading blkindex.dat") << "\n";
 
     // as LoadBlockIndex can take several minutes, it's possible the user
-    // requested to kill litecoin-qt during the last operation. If so, exit.
+    // requested to kill fairbrix-qt during the last operation. If so, exit.
     // As the program has not fully started yet, Shutdown() is possibly overkill.
     if (fRequestShutdown)
     {

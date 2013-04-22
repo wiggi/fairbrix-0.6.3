@@ -1,7 +1,10 @@
 src/*.exe
 src/litecoin
+src/fairbrix
 src/litecoind
+src/fairbrixd
 src/test_litecoin
+src/test_fairbrix
 src/build.h
 .*.swp
 *.*~*
@@ -15,6 +18,7 @@ src/build.h
 *.qm
 Makefile
 litecoin-qt
+fairbrix-qt
 #resources cpp
 qrc_*.cpp
 #qt creator

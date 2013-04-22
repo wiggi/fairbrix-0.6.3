@@ -30,11 +30,18 @@ static const unsigned int MAX_BLOCK_SIZE = 1000000;
 static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
 static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
-static const int64 MIN_TX_FEE = 10000000;
+// FBX fees
+// Minimum fee (when fees apply) 0.01. This is less than litecoins so the fee isn't
+// quite so large when you send an output that is nearly a cent.
+// However, there is code elsewhere that will increase this fee for very small outputs.
+// static const int64 MIN_TX_FEE = 10000000;
+static const int64 MIN_TX_FEE = 1000000;
 static const int64 MIN_RELAY_TX_FEE = MIN_TX_FEE;
-static const int64 MAX_MONEY = 84000000 * COIN; // Litecoin: maximum of 840k coins
+static const int64 MAX_MONEY = 1369777777 * COIN;
 inline bool MoneyRange(int64 nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
-static const int COINBASE_MATURITY = 100;
+// FBX -- mined balance available after 151 confirmations
+//static const int COINBASE_MATURITY = 150;
+static const int COINBASE_MATURITY = 131;
 // Threshold for nLockTime: below this value it is interpreted as block number, otherwise as UNIX timestamp.
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 #ifdef USE_UPNP
@@ -538,7 +545,9 @@ public:
     {
         // Large (in bytes) low-priority (new, small-coin) transactions
         // need a fee.
-        return dPriority > COIN * 576 / 250; // Litecoin: 576 blocks found a day. Priority cutoff is 1 litecoin day / 250 bytes.
+//        return dPriority > COIN * 576 / 250; // Litecoin: 576 blocks found a day. Priority cutoff is 1 litecoin day / 250 bytes.
+// FBX
+        return dPriority > COIN * 144 / 250;
     }
 
     int64 GetMinFee(unsigned int nBlockSize=1, bool fAllowFree=true, enum GetMinFee_mode mode=GMF_BLOCK) const
@@ -548,7 +557,12 @@ public:
 
         unsigned int nBytes = ::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION);
         unsigned int nNewBlockSize = nBlockSize + nBytes;
-        int64 nMinFee = (1 + (int64)nBytes / 1000) * nBaseFee;
+
+// FBX fees
+        int smallTxOutCount = 0;
+// This makes large sized transactions cost more than before.
+//      int64 nMinFee = (1 + (int64)nBytes / 1000) * nBaseFee;
+        int64 nMinFee = (1 + (int64)nBytes / 500) * nBaseFee;
 
         if (fAllowFree)
         {
@@ -562,15 +576,33 @@ public:
             else
             {
                 // Free transaction area
-                if (nNewBlockSize < 27000)
+// FBX fees
+// since blocks are faster than in bitcoin, reserve less space for free transactions.
+//              if (nNewBlockSize < 27000)
+                if (nNewBlockSize < 12000)
                     nMinFee = 0;
             }
         }
 
-        // To limit dust spam, add MIN_TX_FEE/MIN_RELAY_TX_FEE for any output that is less than 0.01
-        BOOST_FOREACH(const CTxOut& txout, vout)
-            if (txout.nValue < CENT)
+// FBX fees
+//        // To limit dust spam, add MIN_TX_FEE/MIN_RELAY_TX_FEE for any output that is less than 0.01
+//        BOOST_FOREACH(const CTxOut& txout, vout)
+//            if (txout.nValue < CENT)
+//                nMinFee += nBaseFee;
+        // To limit dust spam, require MIN_TX_FEE/MIN_RELAY_TX_FEE if any output is less than 0.01
+        // To limit dust spam, charge the nBaseFee for each output under a CENT
+        // For very small outputs, increase the fee by 10x
+        BOOST_FOREACH(const CTxOut& txout, vout) {
+            if (txout.nValue < CENT/100) { // outputs smaller than 0.0001
+                nMinFee += nBaseFee * 100; // fee of 1
+                smallTxOutCount++;
+            }
+            else if ((txout.nValue < CENT)) {
                 nMinFee += nBaseFee;
+                smallTxOutCount++;
+            }
+        }
+
 
         // Raise the price as the block approaches full
         if (nBlockSize != 1 && nNewBlockSize >= MAX_BLOCK_SIZE_GEN/2)
@@ -582,6 +614,13 @@ public:
 
         if (!MoneyRange(nMinFee))
             nMinFee = MAX_MONEY;
+
+// FBX fees
+// This is the core change to limit dust spam.  Instead of a flat fee for small outputs charge a fee
+// for each small output.  If there are more than 15 small outputs than don't allow the transaction at all.
+        if(smallTxOutCount > 15)
+            nMinFee = MAX_MONEY;
+
         return nMinFee;
     }
 
@@ -1583,7 +1622,7 @@ public:
     bool CheckSignature()
     {
         CKey key;
-        if (!key.SetPubKey(ParseHex("040184710fa689ad5023690c80f3a49c8f13f8d45b8c857fbcbc8bc4a8e4d3eb4b10f4d4604fa08dce601aaf0f470216fe1b51850b4acf21b179c45070ac7b03a9")))
+        if (!key.SetPubKey(ParseHex("040__30996a9641469758191e4a718b2ee30381ee021fd49cfd3eeab2e61f7d8b5048606b2750863c0dd34e19e3463b90b5c1283e7ee064d6e2c931859f5cf25cc")))
             return error("CAlert::CheckSignature() : SetPubKey failed");
         if (!key.Verify(Hash(vchMsg.begin(), vchMsg.end()), vchSig))
             return error("CAlert::CheckSignature() : verify signature failed");

@@ -108,7 +108,7 @@ void AskPassphraseDialog::accept()
                 if(model->setWalletEncrypted(true, newpass1))
                 {
                     QMessageBox::warning(this, tr("Wallet encrypted"),
-                                         tr("Litecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your litecoins from being stolen by malware infecting your computer."));
+                                         tr("Fairbrix will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your fairbrix from being stolen by malware infecting your computer."));
                     QApplication::quit();
                 }
                 else
@@ -157,7 +157,7 @@ void AskPassphraseDialog::accept()
             if(model->changePassphrase(oldpass, newpass1))
             {
                 QMessageBox::information(this, tr("Wallet encrypted"),
-                                     tr("Wallet passphrase was successfully changed."));
+                                     tr("Wallet passphrase was succesfully changed."));
                 QDialog::accept(); // Success
             }
             else

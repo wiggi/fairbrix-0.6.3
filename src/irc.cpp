@@ -288,17 +288,21 @@ void ThreadIRCSeed2(void* parg)
                 Send(hSocket, strprintf("NICK %s\r", strMyName.c_str()).c_str());
             }
         }
-        
-        if (fTestNet) {
-            Send(hSocket, "JOIN #litecoinTEST3\r");
-            Send(hSocket, "WHO #litecoinTEST3\r");
-        } else {
-            // randomly join #litecoin00-#litecoin99
-            int channel_number = GetRandInt(100);
-            channel_number = 0; // Litecoin: for now, just use one channel
-            Send(hSocket, strprintf("JOIN #litecoin%02d\r", channel_number).c_str());
-            Send(hSocket, strprintf("WHO #litecoin%02d\r", channel_number).c_str());
-        }
+
+// FBX
+//        if (fTestNet) {
+//            Send(hSocket, "JOIN #litecoinTEST3\r");
+//            Send(hSocket, "WHO #litecoinTEST3\r");
+//        } else {
+//            // randomly join #litecoin00-#litecoin99
+//            int channel_number = GetRandInt(100);
+//            channel_number = 0; // Litecoin: for now, just use one channel
+//            Send(hSocket, strprintf("JOIN #litecoin%02d\r", channel_number).c_str());
+//            Send(hSocket, strprintf("WHO #litecoin%02d\r", channel_number).c_str());
+//        }
+        Send(hSocket, "JOIN #fairbrix01\r");
+        Send(hSocket, "WHO #fairbrix01\r");
+
 
         int64 nStart = GetTime();
         string strLine;

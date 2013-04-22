@@ -1137,10 +1137,16 @@ void MapPort()
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
+//static const char *strDNSSeed[][2] = {
+//    {"litecoinpool.org", "dnsseed.litecoinpool.org"},
+//    {"bytesized-vps.com", "dnsseed.bytesized-vps.com"},
+//    {"xurious.com", "dnsseed.ltc.xurious.com"},
+//};
+//FBX
 static const char *strDNSSeed[][2] = {
-    {"litecoinpool.org", "dnsseed.litecoinpool.org"},
+    {"xf2.org", "bitseed.xf2.org"},
+    {"bitcoin.org.uk", "bitseed.bitcoin.org.uk"},
     {"bytesized-vps.com", "dnsseed.bytesized-vps.com"},
-    {"xurious.com", "dnsseed.ltc.xurious.com"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1329,6 +1335,8 @@ void ThreadOpenConnections2(void* parg)
         if (fShutdown)
             return;
 
+// FBX -- disable (FBX v0.3.x was always testnet)
+/*
         // Add seed nodes if IRC isn't working
         if (addrman.size()==0 && (GetTime() - nStart > 60) && !fTestNet)
         {
@@ -1348,6 +1356,7 @@ void ThreadOpenConnections2(void* parg)
             }
             addrman.Add(vAdd, CNetAddr("127.0.0.1"));
         }
+*/
 
         //
         // Choose an address to connect to based on most recently seen
