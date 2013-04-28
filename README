@@ -3,6 +3,7 @@ Fairbrix is an older, more primitive version of Litecoin.
  - 5 minute block targets
  - 25 coins per block (constant forever)
  - 2016 blocks (1 week) to retarget difficulty
+
 This version (Fairbrix 0.6.3beta) is based on Litecoin 0.6.3c.
 
 Litecoin - a lite version of Bitcoin optimized for CPU mining using scrypt as a proof of work scheme.

@@ -859,7 +859,7 @@ int64 static GetBlockValue(int nHeight, int64 nFees)
 //
 //    // Subsidy is cut in half every 4 years
 //    nSubsidy >>= (nHeight / 840000); // Litecoin: 840k blocks in ~4 years
-    int64 nSubsidy = 25* COIN;
+    int64 nSubsidy = 25 * COIN;
 
     return nSubsidy + nFees;
 }

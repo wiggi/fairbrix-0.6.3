@@ -15,6 +15,15 @@ CONFIG += no_include_pwd
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+# Windows build instructions:
+# https://bitcointalk.org/index.php?topic=149479.0
+#
+#BOOST_LIB_SUFFIX=-mgw46-mt-sd-1_53
+#BOOST_INCLUDE_PATH=C:\deps\boost_1_53_0
+#BOOST_LIB_PATH=C:\deps\boost_1_53_0\stage\lib
+#OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1e/include
+#OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1e
+
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
@@ -289,7 +298,8 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw44-mt-1_43
+#    windows:BOOST_LIB_SUFFIX = -mgw44-mt-1_43
+    windows:BOOST_LIB_SUFFIX = -mgw46-mt-1_53
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
@@ -348,7 +358,8 @@ INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$
 LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
-windows:LIBS += -lole32 -luuid -lgdi32
+#windows:LIBS += -lole32 -luuid -lgdi32
+windows:LIBS += -lole32 -loleaut32 -luuid -lwsock32 -lgdi32 -lm
 LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
 
 contains(RELEASE, 1) {

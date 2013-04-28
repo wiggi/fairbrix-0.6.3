@@ -19,7 +19,7 @@ Patch to add Fairbrix support:
 
 cd blockparser                        # Optional sanity check
                                       #
-grep -drecurse "LITECOIN"             # must list 6 occurences       
+grep -drecurse "LITECOIN"             # must list 6 occurrences       
                                       # 1x makefile, 1x cb/transactions.cpp, 2x parser.cpp, 1x util.h, 1x util.cpp
                                       #
                                       # Makefile:#        -DLITECOIN              \
