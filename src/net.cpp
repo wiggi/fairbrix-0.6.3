@@ -1146,7 +1146,6 @@ void MapPort()
 static const char *strDNSSeed[][2] = {
     {"xf2.org", "bitseed.xf2.org"},
     {"bitcoin.org.uk", "bitseed.bitcoin.org.uk"},
-    {"bytesized-vps.com", "dnsseed.bytesized-vps.com"},
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1215,7 +1214,9 @@ void ThreadDNSAddressSeed2(void* parg)
 
 unsigned int pnSeed[] =
 {
-    0x2EFDCB71, 0xCC1B3AD6, 0xADA77149,
+//    0x2EFDCB71, 0xCC1B3AD6, 0xADA77149,
+// FBX
+    0x0F1B364B, 0xB3BAF536,
 };
 
 void DumpAddresses()
@@ -1323,7 +1324,14 @@ void ThreadOpenConnections2(void* parg)
         ProcessOneShot();
 
         vnThreadsRunning[THREAD_OPENCONNECTIONS]--;
-        Sleep(500);
+//        Sleep(500);
+// FBX v0.3.x would slow down connection attempts after a few minutes
+        if (GetTime() - nStart > 600)
+            Sleep(30000);
+        else if (GetTime() - nStart > 300)
+            Sleep(4000);
+        else
+            Sleep(500);
         vnThreadsRunning[THREAD_OPENCONNECTIONS]++;
         if (fShutdown)
             return;
@@ -1335,8 +1343,7 @@ void ThreadOpenConnections2(void* parg)
         if (fShutdown)
             return;
 
-// FBX -- disable (FBX v0.3.x was always testnet)
-/*
+
         // Add seed nodes if IRC isn't working
         if (addrman.size()==0 && (GetTime() - nStart > 60) && !fTestNet)
         {
@@ -1356,7 +1363,6 @@ void ThreadOpenConnections2(void* parg)
             }
             addrman.Add(vAdd, CNetAddr("127.0.0.1"));
         }
-*/
 
         //
         // Choose an address to connect to based on most recently seen
