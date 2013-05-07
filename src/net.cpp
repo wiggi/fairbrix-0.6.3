@@ -1805,7 +1805,8 @@ void StartNode(void* parg)
     // Start threads
     //
 
-    if (!GetBoolArg("-dnsseed", true))
+// FBX -- dnsseed off by default
+    if (!GetBoolArg("-dnsseed", false))
         printf("DNS seeding disabled\n");
     else
         if (!CreateThread(ThreadDNSAddressSeed, NULL))
