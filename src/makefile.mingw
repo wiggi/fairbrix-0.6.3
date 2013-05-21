@@ -5,20 +5,22 @@
 USE_UPNP:=0
 
 INCLUDEPATHS= \
- -I"C:\boost-1.47.0-mgw" \
- -I"C:\db-4.8.30.NC-mgw\build_unix" \
- -I"C:\openssl-1.0.1b-mgw\include"
+ -I"$(CURDIR)" \
+ -I"c:/deps/boost_1_53_0" \
+ -I"c:/deps/db-4.8.30.NC/build_unix" \
+ -I"c:/deps/openssl-1.0.1e/include"
 
 LIBPATHS= \
- -L"C:\boost-1.47.0-mgw\stage\lib" \
- -L"C:\db-4.8.30.NC-mgw\build_unix" \
- -L"C:\openssl-1.0.1b-mgw"
+ -L"$(CURDIR)/leveldb" \
+ -L"c:/deps/boost_1_53_0/stage/lib" \
+ -L"c:/deps/db-4.8.30.NC/build_unix" \
+ -L"c:/deps/openssl-1.0.1e"
 
 LIBS= \
- -l boost_system-mgw45-mt-s-1_47 \
- -l boost_filesystem-mgw45-mt-s-1_47 \
- -l boost_program_options-mgw45-mt-s-1_47 \
- -l boost_thread-mgw45-mt-s-1_47 \
+ -l boost_system-mgw46-mt-s-1_53 \
+ -l boost_filesystem-mgw46-mt-s-1_53 \
+ -l boost_program_options-mgw46-mt-s-1_53 \
+ -l boost_thread-mgw46-mt-s-1_53 \
  -l db_cxx \
  -l ssl \
  -l crypto
@@ -67,7 +69,7 @@ OBJS= \
     obj/noui.o
 
 
-all: litecoind.exe
+all: fairbrixd.exe
 
 obj/scrypt.o: scrypt.c
 	gcc -c $(CFLAGS) -o $@ $^
@@ -75,7 +77,7 @@ obj/scrypt.o: scrypt.c
 obj/%.o: %.cpp $(HEADERS)
 	g++ -c $(CFLAGS) -o $@ $<
 
-litecoind.exe: $(OBJS:obj/%=obj/%)
+fairbrixd.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
@@ -83,11 +85,12 @@ TESTOBJS := $(patsubst test/%.cpp,obj-test/%.o,$(wildcard test/*.cpp))
 obj-test/%.o: test/%.cpp $(HEADERS)
 	g++ -c $(TESTDEFS) $(CFLAGS) -o $@ $<
 
-test_litecoin.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
+test_fairbrix.exe: $(TESTOBJS) $(filter-out obj/init.o,$(OBJS:obj/%=obj/%))
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ -lboost_unit_test_framework $(LIBS)
 
 clean:
-	-del /Q litecoind test_litecoin
+	-del /Q fairbrixd test_fairbrix
 	-del /Q obj\*
 	-del /Q obj-test\*
 	-del /Q build.h
+

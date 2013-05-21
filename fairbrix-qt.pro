@@ -18,11 +18,15 @@ CONFIG += no_include_pwd
 # Windows build instructions:
 # https://bitcointalk.org/index.php?topic=149479.0
 #
-#BOOST_LIB_SUFFIX=-mgw46-mt-sd-1_53
-#BOOST_INCLUDE_PATH=C:\deps\boost_1_53_0
-#BOOST_LIB_PATH=C:\deps\boost_1_53_0\stage\lib
-#OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1e/include
-#OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1e
+windows: {
+BOOST_LIB_SUFFIX=-mgw46-mt-sd-1_53
+BOOST_INCLUDE_PATH=C:\deps\boost_1_53_0
+BOOST_LIB_PATH=C:\deps\boost_1_53_0\stage\lib
+BDB_INCLUDE_PATH=c:/deps/db-4.8.30.NC/build_unix
+BDB_LIB_PATH=c:/deps/db-4.8.30.NC/build_unix
+OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1e/include
+OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1e
+}
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -92,7 +96,8 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 }
 
 # regenerate src/build.h
-!windows || contains(USE_BUILD_INFO, 1) {
+#!windows || contains(USE_BUILD_INFO, 1) {
+!windows {
     genbuild.depends = FORCE
     genbuild.commands = cd $$PWD; /bin/sh share/genbuild.sh $$OUT_PWD/build/build.h
     genbuild.target = $$OUT_PWD/build/build.h
