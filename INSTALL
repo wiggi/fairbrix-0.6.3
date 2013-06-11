@@ -1,9 +1,12 @@
-Building Litecoin
+Building Fairbrix
 
-See doc/readme-qt.rst for instructions on building Litecoin-Qt,
+See README.md for instructions on building Fairbrix-Qt,
 the intended-for-end-users, nice-graphical-interface, reference
-implementation of Litecoin.
+implementation of Fairbrix.
 
-See doc/build-*.txt for instructions on building litecoind,
+Note that doc/readme-qt.rst is outdated.
+
+See doc/build-*.txt for instructions on building fairbrixd,
 the intended-for-services, no-graphical-interface, reference
-implementation of Litecoin.
+implementation of Fairbrix.
+

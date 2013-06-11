@@ -29,15 +29,11 @@ Debian
 First, make sure that the required packages for Qt4 development of your
 distribution are installed, for Debian and Ubuntu these are:
 
-::
-
     apt-get install qt4-qmake libqt4-dev build-essential libboost-dev libboost-system-dev \
         libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev \
         libssl-dev libdb++-dev
 
 then execute the following:
-
-::
 
     qmake
     make
@@ -66,8 +62,6 @@ Steps 3.1-3.3, 4.2 and 4.3 adapted for Fairbrix:
 
 3.3 From a Windows command prompt (as administrator) run:
 
-::
-
     cd C:\fairbrix\fairbrix-0.6.3\src
     mingw32-make -f makefile.mingw "USE_UPNP:="
     strip fairbrixd.exe
@@ -80,9 +74,7 @@ Steps 3.1-3.3, 4.2 and 4.3 adapted for Fairbrix:
 
 4.3 From "Qt 4.8.4 command prompt" (as administrator) run:
 
-::
-
-    cd C:\utils\fairbrix-0.6.3
+    cd C:\fairbrix\fairbrix-0.6.3
     qmake "USE_UPNP=-" fairbrix-qt.pro
     mingw32-make -f Makefile.Release
 
@@ -90,10 +82,10 @@ An executable (in the \release folder) will be built.
 
 Notes:
 
--You will also need to distribute mingwm10.dll along with the executable(s).
--Only use DLLs from the C:\Qt\4.8.4\bin and C:\MinGW\bin folder.
- (DLLs with same name from other folders crash the executable)
--Keep Qt 4.8.4 installed. (optional but recommended)
+ - You will also need to distribute mingwm10.dll along with the executable(s).
+ - Only use DLLs from the C:\Qt\4.8.4\bin and C:\MinGW\bin folder.
+   (DLLs with same name from other folders crash the executable)
+ - Keep Qt 4.8.4 installed. (optional but recommended)
 
 
 Development process
