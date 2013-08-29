@@ -1,12 +1,13 @@
-Fairbrix is an older, more primitive version of Litecoin.
+Fairbrix is the second oldest scrypt based cryptocoin.
  - scrypt as a proof of work scheme
  - 5 minute block targets
  - 25 coins per block (constant forever)
  - 2016 blocks (1 week) to retarget difficulty
 
-This version (Fairbrix 0.6.3beta) is based on Litecoin 0.6.3c.
+This version (Fairbrix 0.6.3beta) is somewhat outdated and based on Litecoin 0.6.3c.
+A newer version is here: https://github.com/wiggi/fairbrix-0.8-coincontrol
 
-Litecoin - a lite version of Bitcoin optimized for CPU mining using scrypt as a proof of work scheme.
+Litecoin is a lite version of Bitcoin using scrypt as a proof of work scheme.
  - 2.5 minute block targets
  - subsidy halves in 840k blocks (~4 years)
  - ~84 million total coins

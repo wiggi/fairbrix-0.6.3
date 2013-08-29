@@ -19,13 +19,13 @@ CONFIG += no_include_pwd
 # https://bitcointalk.org/index.php?topic=149479.0
 #
 windows: {
-BOOST_LIB_SUFFIX=-mgw46-mt-sd-1_53
-BOOST_INCLUDE_PATH=C:\deps\boost_1_53_0
-BOOST_LIB_PATH=C:\deps\boost_1_53_0\stage\lib
-BDB_INCLUDE_PATH=c:/deps/db-4.8.30.NC/build_unix
-BDB_LIB_PATH=c:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=c:/deps/openssl-1.0.1e/include
-OPENSSL_LIB_PATH=c:/deps/openssl-1.0.1e
+BOOST_LIB_SUFFIX=-mgw46-mt-sd-1_54
+BOOST_INCLUDE_PATH=C:\deps\boost_1_54_0
+BOOST_LIB_PATH=C:\deps\boost_1_54_0\stage\lib
+BDB_INCLUDE_PATH=C:\deps\db-4.8.30.NC\build_unix
+BDB_LIB_PATH=C:\deps\db-4.8.30.NC\build_unix
+OPENSSL_INCLUDE_PATH=C:\deps\openssl-1.0.1e\include
+OPENSSL_LIB_PATH=C:\deps\openssl-1.0.1e
 }
 
 OBJECTS_DIR = build
@@ -57,18 +57,18 @@ contains(USE_QRCODE, 1) {
 #  or: qmake "USE_UPNP=0" (disabled by default)
 #  or: qmake "USE_UPNP=-" (not supported)
 # miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
-#contains(USE_UPNP, -) {
-#    message(Building without UPNP support)
-#} else {
-#    message(Building with UPNP support)
-#    count(USE_UPNP, 0) {
-#        USE_UPNP=1
-#    }
-#    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
-#    INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
-#    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-#    win32:LIBS += -liphlpapi
-#}
+contains(USE_UPNP, -) {
+    message(Building without UPNP support)
+} else {
+    message(Building with UPNP support)
+    count(USE_UPNP, 0) {
+        USE_UPNP=1
+    }
+    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
+    INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
+    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+    win32:LIBS += -liphlpapi
+}
 
 # use: qmake "USE_DBUS=1"
 contains(USE_DBUS, 1) {
